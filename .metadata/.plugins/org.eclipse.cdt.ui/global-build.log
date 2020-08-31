@@ -80,3 +80,8 @@ Info: Internal Builder is used for build
 gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\Clase 02.o" "..\\src\\Clase 02.c" 
 gcc -o "Clase 02.exe" "src\\Clase 02.o" 
 Info: Nothing to build for Clase 02
+21:05:31 **** Incremental Build of configuration Debug for project Clase 02 ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\Clase 02.o" "..\\src\\Clase 02.c" 
+gcc -o "Clase 02.exe" "src\\Clase 02.o" 
+Info: Nothing to build for Clase 02

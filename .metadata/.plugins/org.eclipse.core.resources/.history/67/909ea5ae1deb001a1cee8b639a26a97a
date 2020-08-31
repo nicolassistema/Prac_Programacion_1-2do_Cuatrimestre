@@ -10,7 +10,6 @@ int main(void) {
 
 
 	//for(numero = 0 ; numero != 999 ; numero++){
-	//for(numero = 0 ; numero != 999 ; numero++){
 
 	while(1){
 		printf("Ingrese un numero: ");
