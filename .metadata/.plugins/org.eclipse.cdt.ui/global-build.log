@@ -1,0 +1,82 @@
+20:24:23 **** Rebuild of configuration Debug for project Clase 02 ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\Clase 02.o" "..\\src\\Clase 02.c" 
+gcc -o "Clase 02.exe" "src\\Clase 02.o" 
+Info: Nothing to build for Clase 02
+20:25:25 **** Incremental Build of configuration Debug for project Clase 02 ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\Clase 02.o" "..\\src\\Clase 02.c" 
+gcc -o "Clase 02.exe" "src\\Clase 02.o" 
+c:/mingw/bin/../lib/gcc/mingw32/9.2.0/../../../../mingw32/bin/ld.exe: cannot open output file Clase 02.exe: Permission denied
+collect2.exe: error: ld returned 1 exit status
+20:25:56 **** Incremental Build of configuration Debug for project Clase 02 ****
+Info: Internal Builder is used for build
+gcc -o "Clase 02.exe" "src\\Clase 02.o" 
+20:26:42 **** Incremental Build of configuration Debug for project Clase 02 ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\Clase 02.o" "..\\src\\Clase 02.c" 
+gcc -o "Clase 02.exe" "src\\Clase 02.o" 
+Info: Nothing to build for Clase 02
+20:27:35 **** Incremental Build of configuration Debug for project Clase 02 ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\Clase 02.o" "..\\src\\Clase 02.c" 
+gcc -o "Clase 02.exe" "src\\Clase 02.o" 
+c:/mingw/bin/../lib/gcc/mingw32/9.2.0/../../../../mingw32/bin/ld.exe: cannot open output file Clase 02.exe: Permission denied
+collect2.exe: error: ld returned 1 exit status
+20:27:48 **** Incremental Build of configuration Debug for project Clase 02 ****
+Info: Internal Builder is used for build
+gcc -o "Clase 02.exe" "src\\Clase 02.o" 
+20:29:48 **** Incremental Build of configuration Debug for project Clase 02 ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\Clase 02.o" "..\\src\\Clase 02.c" 
+gcc -o "Clase 02.exe" "src\\Clase 02.o" 
+Info: Nothing to build for Clase 02
+20:30:22 **** Incremental Build of configuration Debug for project Clase 02 ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\Clase 02.o" "..\\src\\Clase 02.c" 
+gcc -o "Clase 02.exe" "src\\Clase 02.o" 
+Info: Nothing to build for Clase 02
+20:30:51 **** Incremental Build of configuration Debug for project Clase 02 ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\Clase 02.o" "..\\src\\Clase 02.c" 
+gcc -o "Clase 02.exe" "src\\Clase 02.o" 
+Info: Nothing to build for Clase 02
+20:42:07 **** Incremental Build of configuration Debug for project Clase 02 ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\Clase 02.o" "..\\src\\Clase 02.c" 
+gcc -o "Clase 02.exe" "src\\Clase 02.o" 
+21:10:37 **** Incremental Build of configuration Debug for project Clase 02 ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\Clase 02.o" "..\\src\\Clase 02.c" 
+..\src\Clase 02.c:4:1: warning: return type defaults to 'int' [-Wimplicit-int]
+    4 | main(void) {
+      | ^~~~
+gcc -o "Clase 02.exe" "src\\Clase 02.o" 
+Info: Nothing to build for Clase 02
+21:15:07 **** Incremental Build of configuration Debug for project Clase 02 ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\Clase 02.o" "..\\src\\Clase 02.c" 
+gcc -o "Clase 02.exe" "src\\Clase 02.o" 
+Info: Nothing to build for Clase 02
+Info: Nothing to build for Clase 02
+Info: Nothing to build for Clase 02
+22:38:28 **** Incremental Build of configuration Debug for project Clase 02 ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\Clase 02.o" "..\\src\\Clase 02.c" 
+gcc -o "Clase 02.exe" "src\\Clase 02.o" 
+c:/mingw/bin/../lib/gcc/mingw32/9.2.0/../../../../mingw32/bin/ld.exe: cannot open output file Clase 02.exe: Permission denied
+collect2.exe: error: ld returned 1 exit status
+22:38:31 **** Incremental Build of configuration Debug for project Clase 02 ****
+Info: Internal Builder is used for build
+gcc -o "Clase 02.exe" "src\\Clase 02.o" 
+c:/mingw/bin/../lib/gcc/mingw32/9.2.0/../../../../mingw32/bin/ld.exe: cannot open output file Clase 02.exe: Permission denied
+collect2.exe: error: ld returned 1 exit status
+22:38:42 **** Incremental Build of configuration Debug for project Clase 02 ****
+Info: Internal Builder is used for build
+gcc -o "Clase 02.exe" "src\\Clase 02.o" 
+Info: Nothing to build for Clase 02
+22:39:42 **** Incremental Build of configuration Debug for project Clase 02 ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\Clase 02.o" "..\\src\\Clase 02.c" 
+gcc -o "Clase 02.exe" "src\\Clase 02.o" 
+Info: Nothing to build for Clase 02

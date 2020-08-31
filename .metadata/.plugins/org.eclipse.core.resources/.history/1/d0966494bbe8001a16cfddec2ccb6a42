@@ -1,0 +1,49 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+main(void) {
+
+	int acumulador=0;
+	int numero;
+	int contador=0;
+
+
+	//for(numero = 0 ; numero != 999 ; numero++)
+
+	while(1){
+
+		printf("Ingrese un numero: ");
+
+		fflush(stdin);
+		scanf("%d",&numero);
+		if(numero!=999){
+
+
+			acumulador = acumulador + numero;
+			contador++;
+		}else{
+			break;
+		}
+
+
+
+
+
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	return EXIT_SUCCESS;
+}

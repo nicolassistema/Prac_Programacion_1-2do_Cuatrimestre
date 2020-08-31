@@ -1,0 +1,15 @@
+coverage_stylePreferences=NONE
+coverage_text=false
+eclipse.preferences.version=1
+highlight.text.style=NONE
+indexResultIndicationColor=47,47,47
+nocoverage_stylePreferences=NONE
+nocoverage_text=false
+org.eclipse.cdt.ui.occurrenceIndicationColor=47,47,47
+org.eclipse.cdt.ui.writeOccurrenceIndicationColor=47,47,47
+overviewRuler_migration=migrated_3.1
+quickdiff.quickDiff=false
+spellingIndicationColor=47,47,47
+thcoverage_stylePreferences=NONE
+thcoverage_text=false
+warningIndicationColor=47,47,47
