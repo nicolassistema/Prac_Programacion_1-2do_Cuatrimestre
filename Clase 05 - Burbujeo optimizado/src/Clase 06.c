@@ -13,7 +13,7 @@ la funcion de ordenar
 #include <stdlib.h>
 
 int getInt(char* mensaje, char* mensajeError, int pResultado[],int reintentos,int maximo,int minimo);
-void ordenarArray(int miArray[], int tam);
+int ordenarArray(int miArray[], int tam);
 void imprimirArray(int miArray[],int tam);
 
 
@@ -23,26 +23,23 @@ int main(void) {
 
 
 
-int miArray[8] = {9,5,7,4,5,8,6,2};
-int i;
+int miArray[8] = {99,20,77,50,41,100,58,33};
+int contadorArrayOrdenado;
 
 
-/*
-for (i = 0; i < 8; i++) {
-//getInt("Ingrese un numero: ", "El numero es incorrecto.", miArray[i],5,10000,1);
-    printf("Ingrese un numero: ");
-    scanf("%d",miArray[i]);
-
-}
-*/
 
 printf("\narray sin ordenar: ");
 imprimirArray(miArray, 8);
 
 
 printf("\narray ordenado: ");
-ordenarArray( miArray, 8);
+contadorArrayOrdenado = ordenarArray( miArray, 8);
 imprimirArray(miArray, 8);
+
+printf("\nCantidad de veces que itero: %d", contadorArrayOrdenado);
+
+
+
 
 
 //dsdsdsd
@@ -105,27 +102,38 @@ void imprimirArray(int miArray[],int tam){
 
 
 
-void ordenarArray (int  miArray[], int tam)
+int ordenarArray (int miArray[], int SIZE)
 {
-  int flagEstadoDesordenado = 1;
+  int flagSwap;
   int i;
-  int aux;
-  while (flagEstadoDesordenado == 1) // no esta ordenado
+  int contador = 0;
+  int retorno = -1;
+  int buffer;
+  int nuevoLimite;
+
+  if (miArray != NULL && SIZE >= 0)
     {
-      flagEstadoDesordenado = 0;
-      // la pasadita
-      for (i = 0; i < (tam - 1); i++)
+      nuevoLimite = SIZE - 1;
+      do
 	{
-	  if (miArray[i] > miArray[i + 1])
+	  flagSwap = 0;
+	  for (i = 0; i < nuevoLimite; i++)
 	    {
-	      // intercambiar (swap)
-	      aux = miArray[i];
-	      miArray[i] = miArray[i + 1];
-	      miArray[i + 1] = aux;
-	      flagEstadoDesordenado = 1;
+	      contador++;
+	      if (miArray[i] < miArray[i + 1])
+		{
+		  flagSwap = 1;
+		  buffer = miArray[i];
+		  miArray[i] = miArray[i + 1];
+		  miArray[i + 1] = buffer;
+		}
 	    }
+	  nuevoLimite--;
 	}
-  }
+      while (flagSwap);
+      retorno = contador;
+    }
+  return retorno;
 }
 
 
