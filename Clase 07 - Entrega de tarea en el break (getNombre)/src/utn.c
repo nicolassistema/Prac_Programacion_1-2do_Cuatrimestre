@@ -50,10 +50,13 @@ int utn_esSoloLetras(char str[])
 
    while(str[i] != '\0')
    {
-       if((str[i] != ' ') && (str[i] < 'a' || str[i] > 'z') && (str[i] < 'A' || str[i] > 'Z'))
+       if((str[i] == ' ') && (str[i] < 'a' || str[i] > 'z') && (str[i] < 'A' || str[i] > 'Z'))
 	 return -1;
        i++;
    }
    return 0;
 }
+
+
+
 

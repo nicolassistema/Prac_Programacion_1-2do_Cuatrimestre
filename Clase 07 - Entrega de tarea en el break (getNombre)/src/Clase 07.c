@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "utn.h"
-#define TAM 20
+#define TAM 40
 
 
 int main(void) {
