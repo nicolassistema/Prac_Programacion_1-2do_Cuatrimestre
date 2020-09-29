@@ -1,9 +1,12 @@
 /*
  * alumno.c
  *
- *  Created on: Sep 22, 2020
- *      Author: Mauro
+ *  Created on: 29 sep. 2020
+ *      Author: nico
  */
+
+
+
 #include <stdio.h>
 #include <stdlib.h>
 #include "utn.h"

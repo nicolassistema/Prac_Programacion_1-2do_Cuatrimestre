@@ -1,9 +1,12 @@
 /*
- * calculosArray.c
+ * calculoArray.c
  *
- *  Created on: Sep 8, 2020
- *      Author: Mauro
+ *  Created on: 29 sep. 2020
+ *      Author: nico
  */
+
+
+
 #include <stdio.h>
 #include <stdlib.h>
 /**

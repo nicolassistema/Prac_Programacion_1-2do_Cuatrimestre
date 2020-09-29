@@ -1,9 +1,3 @@
-/*
- * alumno.h
- *
- *  Created on: Sep 22, 2020
- *      Author: Mauro
- */
 
 #ifndef ALUMNO_H_
 #define ALUMNO_H_
