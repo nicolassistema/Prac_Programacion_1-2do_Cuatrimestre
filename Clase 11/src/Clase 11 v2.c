@@ -14,9 +14,18 @@
 #include "utn.h"
 #include "alumno.h"
 
+
+
+
+
+
+
 int main(void)
 {
-	int op;
+
+  setbuf(stdout,NULL);
+
+  int op;
 	int indiceVacio;
 	int idModificar;
 	int indice;

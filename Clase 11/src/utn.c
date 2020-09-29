@@ -10,7 +10,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "utn.h"
-#include <stdio_ext.h>
+
 
 
 static int myGets(char *cadena, int longitud);
@@ -40,7 +40,7 @@ int utn_getInt(char* mensaje, char* mensajeError, int* pResultado,int reintentos
 		do
 		{
 			printf("%s",mensaje);
-			__fpurge(stdin); // fflush // __fpurge
+			fflush(stdin);
 			resultadoScanf = scanf("%d" , &bufferInt);
 			if(resultadoScanf == 1 && bufferInt >= minimo && bufferInt <= maximo)
 			{
@@ -179,7 +179,7 @@ int utn_getNickName(char* mensaje, char* mensajeError, char* pResultado,int rein
 
 static int myGets(char *cadena, int longitud)
 {
-	__fpurge(stdin);
+	fflush(stdin);
 	fgets (cadena, longitud, stdin);
 	cadena[strlen (cadena) - 1] = '\0';
 	return 0;
