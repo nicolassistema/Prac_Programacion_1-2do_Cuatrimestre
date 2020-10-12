@@ -305,7 +305,7 @@ int contratacion_chargeArray (Contratacion *list, int len)
 
   if (list != NULL && len > 0)
     {
-      if (utn_getNombre ("Ingrese nombre del empleado: ",  "\nError al ingresar.\n", auxEmployee.name, LONG_NAME_CONTRATACION, 5) != 0)
+      if (utn_getnumeroString ("Ingrese nombre cuil: ",  "\nError al ingresar.\n", auxEmployee.name, LONG_NAME_CONTRATACION, 5) != 0)
 	{
 	  return -1;
 	}

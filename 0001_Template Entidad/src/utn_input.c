@@ -68,6 +68,54 @@ int utn_getNumero(char* mensaje,char* mensajeError,int* pResultado,int minimo,in
   return retorno;
 }
 
+//=============================================================================================================
+/*
+ * utn_getNumero : pide al usuario un numero entero
+ * pResultado : Direccion de memoria de la variable donde escribe el valor ingresado por el usuario
+ * mensaje : El mensaje que imprime para pedir un valor.
+ * mensajeError: El mensaje que imprime si el rango no es valido.
+ * minimo : valor minimo valido (inclusive)
+ * maximo : valor maximo valido (inclusive)
+ * Reintentos: cantidad de veces que tiene el usuario para ingresar un valor valido
+ * Retorno: devuelve un 0 si esta todoOK. Devuelve -1 si hubo un error.
+ *
+ */
+int utn_getNumeroString(char* mensaje,char* mensajeError,char* pResultado,int minimo,int maximo,int reintentos)
+{
+  int retorno = -1;
+  char bufferInt;
+  int resultadoScan;
+
+  if (pResultado != NULL && mensaje != NULL && mensajeError != NULL
+      && minimo <= maximo && reintentos > 0)
+    {
+      do
+	{
+	  printf ("%s", mensaje);
+	  fflush (stdin);
+	  resultadoScan = utn_getNumberString (&bufferInt);
+	  if (resultadoScan == 1 && bufferInt >= minimo && bufferInt <= maximo)
+	    {
+	      *pResultado = bufferInt;
+	      retorno = 0;
+	      break;
+	    }
+	  else
+	    {
+	      reintentos--;
+	      if (reintentos != 0)
+		{
+		  printf ("\nQUEDAN [%d] REINTENTOS\n", reintentos);
+		  printf ("%s", mensajeError);
+		}
+	    }
+	}
+      while (reintentos != 0);
+    }
+  return retorno;
+}
+
+
 
 //=============================================================================================================
 /**
@@ -124,6 +172,27 @@ int utn_getNumero(char* mensaje,char* mensajeError,int* pResultado,int minimo,in
 	}
 	return retorno;
 }
+
+ //=============================================================================================================
+ /*
+  * utn_getInt: pide un texto al usuario, lo almacena como cadena, valida y convierte el texto a numero y lo devuelve como int
+  * presultado: puntero numero entero
+  * Retorno: devuelve un 1 si esta todoOK. Devuelve 0 si hubo un error.
+  *
+  */
+  int utn_getNumberString(char* pResultado)
+ {
+ 	int retorno = 0;
+ 	char buffer[64];
+ 	if(pResultado != NULL){
+
+ 		if(utn_myGets(buffer,sizeof(buffer)) != -1 && utn_verificadorDeNumeros(buffer,sizeof(buffer)) != -1){
+ 			 strncpy (*pResultado, buffer, 64);
+ 			retorno = 1;
+ 		}
+ 	}
+ 	return retorno;
+ }
 
 //=============================================================================================================
 /**
@@ -502,6 +571,7 @@ int utn_ordenarArray (int miArray[], int SIZE)
     }
   return retorno;
 }
+
 
 //=====================================================================================
 /**

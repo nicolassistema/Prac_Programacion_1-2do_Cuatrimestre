@@ -23,5 +23,7 @@ int utn_getNombre (char *mensaje, char *mensajeError, char *pNombre, int longitu
 int utn_getAceptaRechaza (char *mensaje, char *mensajeError, char yes, char no);
 void utn_headerArray(void);
 int utn_idIncremental(void);
+int utn_getNumberString(char* pResultado);
+int utn_getNumeroString(char* mensaje,char* mensajeError,char* pResultado,int minimo,int maximo,int reintentos);
 
 #endif /* UTN_INPUT_H_ */
