@@ -19,8 +19,22 @@ int opcion;
 Employee * employeeList[QTY_EMPLOYE]; // Esto contiene un array de punteros
 p_InitEmployees(employeeList, QTY_EMPLOYE);
 p_HardcodDatosEmpleado(employeeList);
-//initEmployees(empcodDatosEmpleado(employeeList);loyeeList, QTY_EMPLOYE);
-//hard
+
+
+
+/////MANEJO DE ARCHIVOS//////////////////////////////////////////////////////////////////////////
+FILE * archivo;//Se genera un puntero a FILE
+
+archivo = fopen("archivo.txt","wb");//Se genera archivo en modo escribir binario
+
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
 
   do
     {
@@ -31,9 +45,11 @@ p_HardcodDatosEmpleado(employeeList);
 	      "2-Modificacion\n"
 	      "3-Baja\n"
 	      "4-Informar\n"
-	      "5-Salir\n\n");
+	      "5-GRABAR\n\n"
+    		  "6-LEER\n\n"
+    		  "7-Salir\n\n");
 
-      if (utn_getNumero ("\nPor favor ingrese una opcion: ","\nOpcion Invalida. ", &opcion, 1, 5, 3) != -1)
+      if (utn_getNumero ("\nPor favor ingrese una opcion: ","\nOpcion Invalida. ", &opcion, 1, 7, 3) != -1)
 	{
 	  switch (opcion)
 	    {
@@ -137,13 +153,33 @@ p_HardcodDatosEmpleado(employeeList);
 		  printf ("\n***************************************\n");
 		}          */
 	      break;
-	    case 5:
-	      printf ("\nEL RPOGRAMA SE CERRO CON EXITO!\n");
-	      system ("pause");
-	      return EXIT_SUCCESS;
-	      break;
-	    default:
-	      break;
+			case 5:
+				printf ("\n*****************************************************");
+			    printf ("\n*****************    GRABAR EN ARCHIVO    ********************\n");
+				printf ("*****************************************************\n");
+
+				p_EscribeArchivoTexto(employeeList,QTY_EMPLOYE);
+
+
+
+				break;
+			case 6:
+				printf ("\n*****************************************************");
+				printf ("\n*****************    LEER DE ARCHIVO    ********************\n");
+				printf ("*****************************************************\n");
+				p_LeerArchivoTexto_Parser(employeeList,QTY_EMPLOYE);
+
+
+
+
+				break;
+			case 7:
+				printf("\nEL RPOGRAMA SE CERRO CON EXITO!\n");
+				system("pause");
+				return EXIT_SUCCESS;
+				break;
+			default:
+				break;
 	    }
 	}
       else
@@ -153,7 +189,7 @@ p_HardcodDatosEmpleado(employeeList);
 	  printf ("\n*****************************\n");
 	}
     }
-  while (opcion != 5);
+  while (opcion != 7);
 
 	return EXIT_SUCCESS;
 }

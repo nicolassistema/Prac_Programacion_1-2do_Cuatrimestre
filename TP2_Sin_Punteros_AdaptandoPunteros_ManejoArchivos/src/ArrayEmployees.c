@@ -951,6 +951,31 @@ int employee_getSalary(Employee* this,float salary)
 }
 
 
+int employee_getSalarioTxt(Employee* this,char* salario)
+{
+	int retorno = -1;
+	if(this != NULL && salario != NULL)
+	{
+		retorno = 0;
+		sprintf(salario,"%.2f",this->salary);
+	}
+	return retorno;
+}
+
+
+int employee_setSalarioTxt(Employee* this,char* salario)
+{
+	int retorno = -1;
+	if(this != NULL && salario >= 0)
+	{
+		retorno = 0;
+		this->salary = atof(salario);
+	}
+	return retorno;
+}
+
+
+
 int employee_setSector(Employee* this,int sector)
 {
 	int retorno = -1;
@@ -973,6 +998,32 @@ int employee_getSector(Employee* this,int sector)
 	}
 	return retorno;
 }
+
+int employee_getSectorTxt(Employee* this,char* sector)
+{
+	int retorno = -1;
+	if(this != NULL && sector != NULL)
+	{
+		retorno = 0;
+		sprintf(sector,"%d",this->sector);
+	}
+	return retorno;
+}
+
+
+int employee_setSectorTxt(Employee* this,char* sector)
+{
+	int retorno = -1;
+	if(this != NULL && sector >= 0)
+	{
+		retorno = 0;
+		this->sector = atoi(sector);
+	}
+	return retorno;
+}
+
+
+
 
 
 int employee_setId(Employee* this,int id)
@@ -998,6 +1049,29 @@ int employee_getId(Employee* this,int id)
 	return retorno;
 }
 
+
+int employee_getIdTxt(Employee* this,char* id)
+{
+	int retorno = -1;
+	if(this != NULL && id != NULL)
+	{
+		retorno = 0;
+		sprintf(id,"%d",this->id);
+	}
+	return retorno;
+}
+
+
+int employee_setIdTxt(Employee* this,char * id)
+{
+	int retorno = -1;
+	if(this != NULL && id >= 0)
+	{
+		retorno = 0;
+		this->id = atoi(id);
+	}
+	return retorno;
+}
 
 
 
@@ -1271,6 +1345,152 @@ printf("\nLO QUE DE VUELVE: %d\n",index);
     }
   return retorno;
 }
+
+
+
+///////MANEJO DE ARCHIVOS///////////////////////////////////////////////////////////////////
+
+/*
+p_LeeArchivoBinario(Employee * arrayEmpleados[])
+{
+
+Employee * auxEmployee = NULL;
+int fin = 1;
+int i = 0;
+FILE * archivo;//Se genera un puntero a FILE
+archivo = fopen("archivo.txt","wb");//Se genera archivo en modo escribir binario
+
+
+
+
+
+do{
+
+	fin= fread(&auxEmployee,sizeof(Employee),1,archivo);
+
+	if(fin ==1 )
+	{
+
+
+
+
+
+		i++;
+	}
+
+
+}while(feof(archivo) == 0);
+
+
+}
+
+
+p_EscribeArchivoBinario(Employee * arrayEmpleados[], int len)
+{
+
+	FILE * archivo;//Se genera un puntero a FILE
+int i;
+
+	for(i=0; i < len ; i++)
+	{
+		fwrite(arrayEmpleados[i],sizeof(Employee), 1, archivo);
+	}
+
+
+
+}
+
+
+*/
+p_EscribeArchivoTexto(Employee * arrayEmpleados[], int len)
+{
+	FILE *archivo; //Se genera un puntero a FILE
+	archivo = fopen("archivo.csv", "wb");
+	int i;
+	char idAux[32];
+	char nombreAux[51];
+	char apellidoAux[51];
+	char salarioAux[32];
+	char sectorAux[16];
+
+	for (i = 0; i < len; i++)
+	{
+		if (arrayEmpleados[i] != NULL)
+		{
+			employee_getIdTxt(arrayEmpleados[i], idAux);
+			employee_getName(arrayEmpleados[i], nombreAux);
+			employee_getLastName(arrayEmpleados[i], apellidoAux);
+			employee_getSalarioTxt(arrayEmpleados[i], &salarioAux);
+			employee_getSectorTxt(arrayEmpleados[i], &sectorAux);
+
+			printf("%s,%s,%s,%s,%s\n", idAux, nombreAux, apellidoAux,salarioAux, sectorAux);
+			fprintf(archivo, "%s,%s,%s,%s,%s\n", idAux, nombreAux, apellidoAux,salarioAux, sectorAux);
+		}
+	}
+	fclose(archivo);
+}
+
+
+
+
+p_LeerArchivoTexto_Parser(Employee *arrayEmpleados[], int len)
+{
+
+	FILE *archivo; //Se genera un puntero a FILE
+	archivo = fopen("archivo.csv", "rb");
+	Employee * employeeAux[100];
+	Employee * aux;
+	int index = 0;
+	int i;
+	char buffer [128];
+	char idAux [128];
+	char auxName[LONG_NAME_EMPLOYE];
+	char auxLastname[LONG_NAME_EMPLOYE];
+	char auxSalary[128];
+	char auxSector[128];
+
+
+	if(archivo!=NULL)
+	{
+		do
+		{
+			if(fscanf(archivo,"%[^,],%[^,],%[^,],%[^,],%[^\n]\n", idAux,auxName,auxLastname,auxSalary,auxSector)==5)
+			{
+				printf("%s - %s - %s - %s - %s\n",idAux,auxName,auxLastname,auxSalary,auxSector);
+				aux=p_Employee_newConParametros(atoi(idAux), auxName,auxLastname,atof(auxSalary),atoi(auxSector));
+				if(aux!=NULL)
+				{
+					arrayEmpleados[index] = aux;
+					index++;
+				}
+			}
+			else
+			{
+				break;
+			}
+		}while(feof(archivo)==0);
+
+		for(i=0;i<index;i++)
+		{
+			printf("\nid: %d - nombre: %s - apellido: %s - Salario: %.2f - Sector: %d",
+					arrayEmpleados[i]->id,
+					arrayEmpleados[i]->name,
+					arrayEmpleados[i]->lastName,
+					arrayEmpleados[i]->salary,
+					arrayEmpleados[i]->sector
+					);
+		}
+	}
+}
+
+
+
+
+
+
+
+
+
 
 
 
