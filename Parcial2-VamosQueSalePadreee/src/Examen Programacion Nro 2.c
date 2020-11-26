@@ -34,6 +34,9 @@ int main(void) {
 	LinkedList* listaClientes = ll_newLinkedList();
 	LinkedList* listaAfiches = ll_newLinkedList();
 
+	controller_loadFromTextCliente("Clientes.txt",listaClientes);
+	controller_loadFromTextAfiche("Afiches.txt",listaAfiches);
+
 
 
 
@@ -63,10 +66,8 @@ int main(void) {
 	                case 1:
 	                	if(archivoCargado == 0)
 	                	{
-							if(!controller_loadFromText("Clientes.txt",listaClientes))
-							{
-								archivoCargado = 1;
-							}
+	                		controller_loadFromTextCliente("Clientes.txt",listaClientes);
+	                		//controller_saveAsTextCliente("Clientes.txt",listaClientes);
 	                	}
 	                	else
 	                	{
@@ -76,7 +77,7 @@ int main(void) {
 	                case 2:
 	                	if(archivoCargado == 0)
 	                	{
-							controller_loadFromBinary("data.dat",listaClientes);
+							//controller_loadFromBinary("data.dat",listaClientes);
 							archivoCargado = 1;
 	                    }
 	                	else
@@ -87,7 +88,7 @@ int main(void) {
 	                case 3:
 	                	if(controller_addCliente(listaClientes)!=-1)
 	                	  {
-	                	    controller_saveAsText("data.dat",listaClientes);
+	                	    controller_saveAsTextCliente("Clientes.txt",listaClientes);
 	                	   }
 
 
@@ -98,25 +99,37 @@ int main(void) {
 	                	controller_editCliente(listaClientes);
 	                    break;
 	                case 5:
-	                	controller_removeCliente(listaClientes);
+	                	controller_editAfiche(listaAfiches, listaClientes);
 	                    break;
 	                case 6:
 	                	controller_ListCliente(listaClientes);
 	                    break;
 	                case 7:
-	                	controller_sortCliente(listaClientes);
+	                	info_CantVentasXCliente(listaAfiches,listaClientes, 1);
+
 	                    break;
 	                case 8:
-	                	controller_sortClientebyID(listaClientes);
+	                	info_CantVentasXCliente(listaAfiches,listaClientes, 0);
 	                    break;
 	                case 9:
 
-	                  controller_addAfiche(listaAfiches);
+	                 if( controller_addAfiche(listaAfiches,listaClientes) != -1){
+
+						controller_saveAsTextAfiche("Afiche.txt",listaClientes);
+
+
+	                 }
 
 	                	//controller_saveAsBinary("data.dat",listaClientes);
 	                    break;
 	                case 10:
-	                	controller_saveAsText("data.csv",listaClientes);
+	                	if(archivoCargado == 0)
+							{
+								if(!controller_loadFromTextAfiche("Afiches.txt",listaAfiches))
+								{
+									archivoCargado = 1;
+								}
+							}
 	                	break;
 	                case 11:
 	                	utn_getNumero(&to,"Ingrese ID\n","ID incorrecto\n",0,ll_len(listaClientes),2);

@@ -10,7 +10,7 @@
 #include "LinkedList.h"
 #include "Cliente.h"
 #include "Venta.h"
-//#include "parser.h"
+#include "parser.h"
 #include "utn.h"
 #include "Controller.h"
 #include <string.h>
@@ -81,6 +81,7 @@ static int idMaximoEncontrado(LinkedList* pArrayListCliente, int* idMaximo);
  * \return int 0 si salió OK o (-1) ERROR
  *
  */
+/*
 int controller_loadFromText(char* path , LinkedList* pArrayListCliente)
 {
 	int retorno = -1;
@@ -102,7 +103,7 @@ int controller_loadFromText(char* path , LinkedList* pArrayListCliente)
 
 	return retorno;
 }
-
+*/
 /** \brief Carga los datos de los empleados desde el archivo data.dat (modo binario).
  *
  * \param path char* Nombre del archivo a cargar
@@ -110,6 +111,7 @@ int controller_loadFromText(char* path , LinkedList* pArrayListCliente)
  * \return int 0 si salió OK o (-1) ERROR
  *
  */
+/*
 int controller_loadFromBinary(char* path , LinkedList* pArrayListCliente)
 {
 	int retorno = -1;
@@ -131,6 +133,7 @@ int controller_loadFromBinary(char* path , LinkedList* pArrayListCliente)
 
 	return retorno;
 }
+*/
 
 /** \brief Alta de empleados
  * \param pArrayListCliente LinkedList* Puntero a la lista del tipo LinkedList* donde será añadido el empleado

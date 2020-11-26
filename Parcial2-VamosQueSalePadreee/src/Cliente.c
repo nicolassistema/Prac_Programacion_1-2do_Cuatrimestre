@@ -43,7 +43,7 @@ Cliente* cliente_new(void)
  *
  */
 
-Cliente* cliente_newParametrosTxt(char* idStr,char* nombreStr,char* apellidoStr, char* cuitStr)
+Cliente* cliente_newParametrosTxt(char* idStr,char* nombreStr,char* apellidoStr, char* cuitStr, char* cantidadVentas)
 {
 	Cliente* this = NULL;
 	this = cliente_new();
@@ -52,7 +52,8 @@ Cliente* cliente_newParametrosTxt(char* idStr,char* nombreStr,char* apellidoStr,
 		if(	cliente_setNombre(this,nombreStr) == -1 ||
 			cliente_setIdTxt(this,idStr) == -1 ||
 			cliente_setCuit(this,cuitStr) == -1 ||
-			cliente_setApellido(this, apellidoStr) == -1)
+			cliente_setApellido(this, apellidoStr) == -1||
+			cliente_setCantidadAfichesClienteTxt(this, cantidadVentas) == -1)
 		{
 			cliente_delete(this);
 			this = NULL;
@@ -71,7 +72,7 @@ Cliente* cliente_newParametrosTxt(char* idStr,char* nombreStr,char* apellidoStr,
  *
  */
 
-Cliente* cliente_newParametros(int id, char* nombre,char* cuit, char* apellido)
+Cliente* cliente_newParametros(int id, char* nombre,char* cuit, char* apellido, int cantidadVentas)
 {
 	Cliente* this = NULL;
 	this = cliente_new();
@@ -81,7 +82,8 @@ Cliente* cliente_newParametros(int id, char* nombre,char* cuit, char* apellido)
 		if(	cliente_setId(this, id) == -1 ||
 			cliente_setNombre(this, nombre) == -1 ||
 			cliente_setCuit(this, cuit) == -1 ||
-			cliente_setApellido(this, apellido) == -1)
+			cliente_setApellido(this, apellido) == -1 ||
+			cliente_setCantidadAfichesCliente(this, cantidadVentas) == -1)
 		{
 			cliente_delete(this);
 			this = NULL;
@@ -238,13 +240,13 @@ int cliente_setIdTxt(Cliente* this,char* idProducto)
  */
 
 
-int cliente_getId(Cliente* this,int* idProducto)
+int cliente_getId(Cliente* this,int* id)
 {
 	int retorno = -1;
-	if(this != NULL && idProducto != NULL)
+	if(this != NULL && id != NULL)
 	{
 		retorno = 0;
-		*idProducto = this->id;
+		*id = this->id;
 	}
 	return retorno;
 }
@@ -318,12 +320,62 @@ if(this != NULL && cuit != NULL)
 return retorno;
 }
 
-/**
- * \brief Se obtendrán las horas trabajadas del empleado pasado por parámetro
- * \param this Employee* Puntero al empleado
- * \param horasTrabajadas char* Puntero a la cantidad de horas trabajadas que se obtendrá del empleado mencionado
- * \return int (-1) ERROR y (0) OK
- */
+
+
+int cliente_setCantidadAfichesCliente(Cliente* this,int cantidadAfichesCliente){
+
+	int retorno = -1;
+	if(this != NULL && cantidadAfichesCliente >= 0)
+	{
+		retorno = 0;
+		this->cantidadAfichesCliente = cantidadAfichesCliente;
+	}
+	return retorno;
+
+
+}
+int cliente_setCantidadAfichesClienteTxt(Cliente* this,char* cantidadAfichesCliente){
+
+	int retorno = -1;
+	if(this != NULL && cantidadAfichesCliente != NULL)
+	{
+		if(esNumerica(cantidadAfichesCliente,10))
+		{
+			retorno = 0;
+			this->cantidadAfichesCliente = atoi(cantidadAfichesCliente);
+		}
+	}
+	return retorno;
+
+
+
+
+}
+int cliente_getCantidadAfichesCliente(Cliente* this,int* cantidadAfichesCliente){
+
+	int retorno = -1;
+	if(this != NULL && cantidadAfichesCliente != NULL)
+	{
+		retorno = 0;
+		*cantidadAfichesCliente = this->cantidadAfichesCliente;
+	}
+	return retorno;
+
+
+
+}
+int cliente_getCantidadAfichesClienteTxt(Cliente* this,char* cantidadAfichesCliente){
+
+
+	int retorno = -1;
+	if(this != NULL && cantidadAfichesCliente != NULL)
+	{
+		retorno = 0;
+		sprintf(cantidadAfichesCliente,"%d",this->cantidadAfichesCliente);
+	}
+	return retorno;
+
+}
 
 
 
@@ -635,22 +687,23 @@ int cli_cuitIsInList(LinkedList* listClient, char* cuit)
  */
 int cli_IdIsInList(LinkedList* listClient, int id)
 {
-	int result = 0;
+	int result = -1;
 	int i;
 	int bufferId;
 	Cliente* pClient;
 
-	if(listClient !=  NULL && bufferId != NULL)
+	if(listClient !=  NULL)
 	{
 		for (i = 0; i < ll_len(listClient); i++)
 		{
 			pClient = (Cliente*)ll_get(listClient,i);
 			if(pClient!= NULL)
 			{
-				cliente_getId(pClient,bufferId);
+				cliente_getId(pClient,&bufferId);
+
 				if (id == bufferId)
 				{
-					result = 1;
+					result = 0;
 					break;
 				}
 			}

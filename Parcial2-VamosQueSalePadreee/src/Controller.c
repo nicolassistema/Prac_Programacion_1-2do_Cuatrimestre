@@ -22,7 +22,7 @@ static int idMaximoEncontrado(LinkedList* pArrayListCliente, int* idMaximo);
  * \return int 0 si salió OK o (-1) ERROR
  *
  */
-int controller_loadFromText(char* path , LinkedList* pArrayListCliente)
+int controller_loadFromTextCliente(char* path , LinkedList* pArrayListCliente)
 {
 	int retorno = -1;
 	FILE *pArch;
@@ -38,30 +38,23 @@ int controller_loadFromText(char* path , LinkedList* pArrayListCliente)
 		}
 		else
 
-			printf("El archivo no puede abrirse\n");
+			printf("El archivo no puede abrirse\n\n");
 	}
 
 	return retorno;
 }
 
-/** \brief Carga los datos de los empleados desde el archivo data.dat (modo binario).
- *
- * \param path char* Nombre del archivo a cargar
- * \param pArrayListEmployee LinkedList* Puntero del tipo LinkedList* a la lista donde se guardará la información
- * \return int 0 si salió OK o (-1) ERROR
- *
- */
-int controller_loadFromBinary(char* path , LinkedList* pArrayListCliente)
+int controller_loadFromTextAfiche(char* path , LinkedList* pArrayListAfiche)
 {
 	int retorno = -1;
 	FILE *pArch;
-	if(path != NULL && pArrayListCliente != NULL)
+	if(path != NULL && pArrayListAfiche != NULL)
 	{
 
-		pArch = fopen(path, "rb");
-		if(pArch != NULL && parser_ClienteFromBinary(pArch,pArrayListCliente)==0)
+		pArch = fopen(path, "rw");
+		if(pArch != NULL && parser_AfichesFromText(pArch,pArrayListAfiche)==0)
 		{
-			printf("Archivo cargado existosamente\n");
+			printf("Archivo cargado existosamente\n\n");
 			retorno = 0;
 			fclose(pArch);
 		}
@@ -72,6 +65,8 @@ int controller_loadFromBinary(char* path , LinkedList* pArrayListCliente)
 
 	return retorno;
 }
+
+
 /** \brief Alta de empleados
  * \param pArrayListEmployee LinkedList* Puntero a la lista del tipo LinkedList* donde será añadido el empleado
  * \return int Retorna 0 OK o (-1) ERROR
@@ -102,9 +97,9 @@ int controller_addCliente(LinkedList* pArrayListCliente)
 				idMaximoEncontrado(pArrayListCliente, &idAux);
 				idAux = idAux + 1;
 			}
-			if(cliente_newParametros(idAux,auxNombre,cuitAux,auxApellido) >= 0)
+			if(cliente_newParametros(idAux,auxNombre,cuitAux,auxApellido,0) >= 0)
 			{
-				pAuxiliarCliente = (Cliente*)cliente_newParametros(idAux,auxNombre,cuitAux,auxApellido);
+				pAuxiliarCliente = (Cliente*)cliente_newParametros(idAux,auxNombre,cuitAux,auxApellido,0);
 				ll_add(pArrayListCliente,pAuxiliarCliente);
 				retorno = 0;
 				printf("Cliente creado correctamente en la ubicación %d\n", idAux);
@@ -134,8 +129,9 @@ int controller_addAfiche(LinkedList* pArrayListAfiches,LinkedList* pArrayListACl
 	char nombreArchivo[LEN_AUX];
 	int cantidadAfiches;
 	char zona[LEN_AUX];
-	char estado[LEN_AUX];
+	//char estado[LEN_AUX];
 	int estadoNum;
+	char numero[1] = "0";
 
 
 	if(pArrayListAfiches != NULL)
@@ -143,14 +139,14 @@ int controller_addAfiche(LinkedList* pArrayListAfiches,LinkedList* pArrayListACl
 
 	    controller_ListCliente(pArrayListAClientes);
 		if(
-		    !(utn_getNumero(&idCliente, "Ingrese el di cliente\n", "Valor incorrecto\n", 0, 99999, 3))&&
+		    !(utn_getNumero(&idCliente, "Ingrese el id cliente\n", "Valor incorrecto\n", 0, 99999, 3))&&
+			!(cli_IdIsInList(pArrayListAClientes, idCliente)) &&
 		    !(utn_getNombre(nombreArchivo, LEN_AUX,"Ingrese nombre archivo\n", "Valor incorrecto\n",2)) &&
-		   !(utn_getNombre(zona, LEN_AUX,"Ingrese zona\n", "Valor incorrecto\n",2)) &&
-//		   !(utn_getNombre(estado, LEN_AUX,"Ingrese estado\n", "Valor incorrecto\n",2)) &&
+			!(utn_getNumero(&cantidadAfiches, "Ingrese cantidad de afiches\n", "Valor incorrecto\n", 0, 100, 3)) &&
+		   !(utn_getNombre(zona, LEN_AUX,"Ingrese zona\n", "Valor incorrecto\n",2)))
 
 
 
-		   !(cli_IdIsInList(pArrayListAClientes, &idCliente)))
 		{
 			if(ll_len(pArrayListAfiches) == 0)
 			{
@@ -162,20 +158,22 @@ int controller_addAfiche(LinkedList* pArrayListAfiches,LinkedList* pArrayListACl
 				idAux = idAux + 1;
 			}
 
-			strncpy(estado,"A cobrar",sizeof(estado));
-			afiche_setEstado(pArrayListAfiches, estado);
-			afiche_imprimir(pArrayListAfiches);
 
-			if(afiche_newParametros(idAux,idCliente,nombreArchivo,cantidadAfiches,zona,estado,estadoNum) >= 0)
+
+
+			if(afiche_newParametros(idAux,idCliente,nombreArchivo,cantidadAfiches,zona,estadoNum) >= 0)
 			{
-			    pAuxiliarAfiche = (Afiche*)afiche_newParametros(idAux,idCliente,nombreArchivo,cantidadAfiches,zona,estado,estadoNum);
+			    pAuxiliarAfiche = (Afiche*)afiche_newParametros(idAux,idCliente,nombreArchivo,cantidadAfiches,zona,estadoNum);
 				ll_add(pArrayListAfiches,pAuxiliarAfiche);
 				retorno = 0;
 				printf("Afiche creado correctamente en la ubicación %d\n", idAux);
+				afiche_setEstadoNumTxt(pAuxiliarAfiche, numero);
+
 			}
+			afiche_imprimir(pAuxiliarAfiche);
 		}else
 		  {
-		    printf("\nNo existe cleinte con ese id. INTENTE NUEVAMENTE\n");
+		    printf("\nNo existe cliente con ese id. INTENTE NUEVAMENTE\n");
 		  }
 	}
 	return retorno;
@@ -226,6 +224,119 @@ int controller_editCliente(LinkedList* pArrayListCliente)
 			}
 		}
 	}
+	return retorno;
+}
+
+void* buscarPorId(LinkedList* list, int id,int choiceList)
+{
+	void* result = NULL;
+	void* pElement;
+	int i;
+	int bufferId;
+	int resultAux;
+
+	printf("ACA");
+	if(list != NULL && id > 0 && (choiceList == 1 || choiceList == 2))
+	{
+		for (i = 0; i < ll_len(list); i++)
+		{
+			if(choiceList == 1)
+			{
+				pElement = (Cliente*)ll_get(list,i);
+				resultAux = cliente_getId(pElement,&bufferId);
+			} else {
+				pElement = (Afiche*)ll_get(list,i);
+				resultAux = afiche_getIdCliente(pElement,&bufferId);
+			}
+			if(resultAux != -1 && bufferId == id)
+			{
+
+				result = pElement;
+				break;
+			}
+		}
+	}
+	return result;
+}
+
+
+int controller_editAfiche(LinkedList* pArrayListAfiche, LinkedList* pArrayListCliente)
+{
+	int retorno = -1;
+	Afiche* auxAfiche;
+	Afiche afiche;
+	int idAux;
+	Cliente* auxCliente;
+	LinkedList* newList = NULL;
+	int idAux;
+	int idCliente;
+	char nombreArchivo[LEN_AUX];
+	int cantidadAfiches;
+	char zona[LEN_AUX];
+	int index;
+	int opcionAux;
+
+
+
+	if(pArrayListAfiche != NULL)
+	{
+
+		newList = ll_clone(pArrayListAfiche);
+
+		if(newList != NULL){
+
+			if(ll_filter2(newList,afiche_compararStatus,0) == 0
+					&& ll_map(newList,afiche_imprimirUno) == 0
+					&& utn_getNumero(&idAux, "Ingrese el ID que desea editar\n", "\nError", 0, 999999, 3) == 0)
+			{
+
+				auxAfiche = buscarPorId(newList, afiche.id, 2);
+
+				printf("\n ID %d  \n",auxAfiche->id);
+			}
+
+			//controller_ListAfiche(pArrayListAfiche);
+			//if(!utn_getNumero(&idAux,"Ingrese el ID que desea editar\n","ID inválido\n",0,ll_len(pArrayListAfiche), 2))
+		//	{
+
+				//auxAfiche = (Afiche*)ll_get(pArrayListAfiche,index);
+				if(auxAfiche != NULL)
+				{
+
+					afiche_imprimir(auxAfiche);
+
+
+					if(!utn_getNumero(&opcionAux,"Confirma modificar el afiche? [0-NO/1-SI]\n","Opción inválida\n",0,1,2) && opcionAux == 1)
+					{
+
+						afiche_getIdCliente(auxAfiche, &afiche.id);
+						auxCliente = buscarPorId(pArrayListCliente, afiche.idCliente, 1);
+
+						printf("\nLa venta le pertenece al cliente: \n");
+
+						cliente_imprimir(auxCliente);
+
+						if(!(utn_getNumero(&idCliente, "Ingrese el id cliente\n", "Valor incorrecto\n", 0, 99999, 3))&&
+								!(cli_IdIsInList(pArrayListAfiche, idCliente)) &&
+								!(utn_getNombre(nombreArchivo, LEN_AUX,"Ingrese nombre archivo\n", "Valor incorrecto\n",2)) &&
+								!(utn_getNumero(&cantidadAfiches, "Ingrese cantidad de afiches\n", "Valor incorrecto\n", 0, 100, 3)) &&
+							   !(utn_getNombre(zona, LEN_AUX,"Ingrese zona\n", "Valor incorrecto\n",2)))
+						retorno = 0;
+
+
+						afiche_getId(auxAfiche, &idAux);
+						afiche_getIdCliente(auxAfiche, &idCliente);
+						afiche_getNombreArchivo(auxAfiche, nombreArchivo);
+						afiche_getCantidadAfiches(auxAfiche, &cantidadAfiches);
+						afiche_getZona(auxAfiche, zona);
+
+						}
+					}
+				//}
+			}
+		}
+
+
 	return retorno;
 }
 
@@ -368,7 +479,7 @@ int controller_sortClientebyID(LinkedList* pArrayListCliente)
  * \return int 0 OK, (-1) ERROR
  *
  */
-int controller_saveAsText(char* path , LinkedList* pArrayListCliente)
+int controller_saveAsTextCliente(char* path , LinkedList* pArrayListCliente)
 {
 	int retorno=-1;
 	int i;
@@ -377,6 +488,7 @@ int controller_saveAsText(char* path , LinkedList* pArrayListCliente)
 	char auxiliarNombre[NOMBRE_LEN];
 	char auxApellido[NOMBRE_LEN];
 	char auxCuit[NOMBRE_LEN];
+	int cantidadAfichesCliente;
 	Cliente* auxCliente;
 
 	if(pArrayListCliente != NULL && path != NULL)
@@ -394,9 +506,56 @@ int controller_saveAsText(char* path , LinkedList* pArrayListCliente)
 					if(!cliente_getId(auxCliente,&auxiliarId) &&
 					   !cliente_getNombre(auxCliente,auxiliarNombre) &&
 					   !cliente_getCuit(auxCliente,auxCuit) &&
-					   !cliente_getApellido(auxCliente,auxApellido))
+					   !cliente_getApellido(auxCliente,auxApellido)&&
+					   !cliente_getCantidadAfichesCliente(auxCliente, &cantidadAfichesCliente))
 					{
-						fprintf(fpArchivo,"%d,%s,%s,%s\n",auxiliarId,auxiliarNombre,auxApellido,auxCuit);
+						fprintf(fpArchivo,"%d,%s,%s,%s,%d\n",auxiliarId,auxiliarNombre,auxApellido,auxCuit,cantidadAfichesCliente);
+					}
+				}
+
+			}
+			fclose(fpArchivo);
+			printf("Archivo guardado correctamente\n");
+
+		}
+	}
+	return retorno;
+}
+
+
+int controller_saveAsTextAfiche(char* path , LinkedList* pArrayListAfiche)
+{
+	int retorno=-1;
+	int i;
+	FILE* fpArchivo;
+	int id;
+	int idCliente;
+	char nombreArchivo[NOMBRE_LEN];
+	int cantidadAfiches;
+	char zona [NOMBRE_LEN];
+	int estadoNum;
+	Afiche* auxAfiche;
+
+	if(pArrayListAfiche != NULL && path != NULL)
+	{
+
+		fpArchivo = fopen(path,"w");
+		if(fpArchivo != NULL)
+		{
+			retorno=0;
+			for(i=0;i<ll_len(pArrayListAfiche);i++)
+			{
+				auxAfiche = (Afiche*)ll_get(pArrayListAfiche,i);
+				if(auxAfiche != NULL)
+				{
+					if(!afiche_getId(auxAfiche,&id) &&
+				 	   !afiche_getIdCliente(auxAfiche,&idCliente) &&
+					   !afiche_getNombreArchivo(auxAfiche,nombreArchivo) &&
+					   !afiche_getCantidadAfiches(auxAfiche,&cantidadAfiches) &&
+					   !afiche_getZona(auxAfiche,zona) &&
+					   !afiche_getEstadoNum(auxAfiche,&estadoNum))
+					{
+						fprintf(fpArchivo,"%d,%d,%s,%d,%s,%d\n",id,idCliente,nombreArchivo,cantidadAfiches,zona,estadoNum);
 					}
 				}
 
@@ -538,4 +697,97 @@ int controller_containsElemento(LinkedList* pArrayListCliente, Cliente* cliente 
 	}
 
 	return retorno;
+}
+
+
+int info_CantVentasXCliente(LinkedList* pArrayListAfiche, LinkedList* pArrayListCliente, int choice)
+{
+	int result = -1;
+	int i;
+	int qty = 0;
+	Cliente* pClient;
+	int bufferIdClient;
+	LinkedList* newList = NULL;
+	char status[15];
+
+	if(pArrayListAfiche != NULL && pArrayListCliente != NULL)
+	{
+		newList = ll_newLinkedList();
+		for (i = 0; i < ll_len(pArrayListCliente); i++)
+		{
+			pClient = (Cliente*) ll_get(pArrayListCliente,i);
+			if(pClient != NULL)
+			{
+				cliente_getId(pClient,&bufferIdClient);
+				if (info_qtySalesById(pArrayListAfiche,&qty,choice,bufferIdClient) == 0 && qty >= 0)
+				{
+					cliente_setCantidadAfichesCliente(pClient,qty);
+					result = ll_add(newList,pClient);
+				}
+			}
+		}
+		if(choice == 0)
+		{
+			sprintf(status,"A Cobrar.txt");
+		} else {
+			sprintf(status,"Cobradas.txt");
+		}
+		//controller_loadOrSaveFromTxt(newList,status,"w",parser_ClientQtySalesCharged);
+		controller_loadFromTextCliente(status, newList);
+		//controller_loadFromTextAfiche(status, newList);
+		controller_saveAsTextCliente(status, newList);
+		//controller_saveAsTextAfiche(status, newList);
+	}
+	return result;
+}
+
+int info_qtySalesById(LinkedList* listSale, int* qty,int choice,int id)
+{
+	int result = -1;
+	int i;
+	int counter = 0;
+	Afiche* pSale;
+	int status;
+	int bufferIdClient;
+
+	if (listSale != NULL && qty != NULL && (choice == 0 || choice == 1) && id > 0)
+	{
+		for (i = 0; i < ll_len(listSale); i++)
+		{
+			pSale = (Afiche*) ll_get(listSale,i);
+			if(pSale != NULL)
+			{
+				afiche_getEstadoNum(pSale,&status);
+				afiche_getIdCliente(pSale,&bufferIdClient);
+				if(status == choice && bufferIdClient == id)
+				{
+					counter++;
+				}
+			}
+		}
+		*qty = counter;
+		result = 0;
+	}
+	return result;
+}
+
+
+int afiche_compararStatus(void* this, void* arg)
+{
+	int returnAux = -1;
+	Afiche* status = (Afiche*)this;
+	int buffer;
+	int* comparadorStatus = (int*)arg;
+
+	if(this != NULL)
+	{
+		afiche_getEstadoNum(status, &buffer);
+		if(buffer == (*comparadorStatus))
+		{
+			returnAux = 0;
+		} else {
+			returnAux = 1;
+		}
+	}
+	return returnAux;
 }
